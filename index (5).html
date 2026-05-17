@@ -1,0 +1,2245 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Target U - المنح وفرص العمل</title>
+<style>
+/* ============ CSS VARIABLES & RESET ============ */
+:root {
+  --bg: #f0f4f8;
+  --bg2: #ffffff;
+  --bg3: #e8ecf1;
+  --text: #1a1a2e;
+  --text2: #4a4a6a;
+  --text3: #6b7280;
+  --primary: #4f46e5;
+  --primary-light: #818cf8;
+  --primary-dark: #3730a3;
+  --accent: #f59e0b;
+  --accent2: #10b981;
+  --danger: #ef4444;
+  --danger-light: #fca5a5;
+  --border: #d1d5db;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 8px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --sent-msg: #4f46e5;
+  --received-msg: #f3f4f6;
+  --sent-text: #ffffff;
+  --received-text: #1a1a2e;
+  --sidebar-width: 260px;
+  --header-height: 64px;
+}
+
+.dark {
+  --bg: #0f172a;
+  --bg2: #1e293b;
+  --bg3: #334155;
+  --text: #f1f5f9;
+  --text2: #cbd5e1;
+  --text3: #94a3b8;
+  --border: #475569;
+  --shadow: 0 4px 24px rgba(0,0,0,0.3);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.5);
+  --received-msg: #334155;
+  --received-text: #f1f5f9;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', 'Tajawal', Tahoma, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+  overflow-x: hidden;
+}
+
+/* ============ SCROLLBAR ============ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+/* ============ LANDING PAGE ============ */
+.landing {
+  position: fixed; inset: 0; z-index: 9999;
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 30%, #4f46e5 60%, #6366f1 100%);
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 0.5s ease;
+}
+.landing.hidden { display: none; }
+.landing-content {
+  background: rgba(255,255,255,0.05); backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 32px; padding: 48px 40px; max-width: 600px; width: 90%;
+  text-align: center; color: #fff;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+  animation: slideUp 0.6s ease;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.landing-logo {
+  font-size: 64px; margin-bottom: 8px; animation: float 3s ease-in-out infinite;
+}
+.landing-content h1 {
+  font-size: 42px; font-weight: 900; margin-bottom: 6px;
+  background: linear-gradient(135deg, #f59e0b, #fbbf24, #fcd34d);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.landing-content .tagline {
+  font-size: 18px; color: #c7d2fe; margin-bottom: 24px;
+}
+.landing-content .features-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin-bottom: 32px; text-align: right;
+}
+.landing-content .feature-item {
+  background: rgba(255,255,255,0.08); border-radius: 16px; padding: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.landing-content .feature-icon {
+  font-size: 28px; min-width: 42px; text-align: center;
+}
+.landing-content .feature-text { font-size: 14px; color: #e0e7ff; }
+.landing-btn {
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color: #fff; border: none; padding: 16px 48px; font-size: 18px;
+  font-weight: 700; border-radius: 50px; cursor: pointer;
+  transition: all var(--transition); box-shadow: 0 8px 24px rgba(245,158,11,0.4);
+}
+.landing-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(245,158,11,0.6); }
+
+/* ============ AUTH PAGE ============ */
+.auth-container {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  background: var(--bg); padding: 20px;
+}
+.auth-card {
+  background: var(--bg2); border-radius: var(--radius); padding: 40px;
+  width: 100%; max-width: 480px; box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+}
+.auth-tabs { display: flex; gap: 0; margin-bottom: 32px; }
+.auth-tab {
+  flex: 1; padding: 12px; text-align: center; cursor: pointer;
+  border-bottom: 3px solid var(--border); font-weight: 600; font-size: 16px;
+  transition: all var(--transition); color: var(--text2);
+}
+.auth-tab.active { border-bottom-color: var(--primary); color: var(--primary); }
+.auth-form { display: none; }
+.auth-form.active { display: block; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; color: var(--text2); }
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: 12px 16px; border-radius: var(--radius-xs);
+  border: 2px solid var(--border); font-size: 15px; background: var(--bg);
+  color: var(--text); transition: all var(--transition); font-family: inherit;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79,70,229,0.15);
+}
+.form-group textarea { resize: vertical; min-height: 80px; }
+.profile-pic-upload {
+  width: 100px; height: 100px; border-radius: 50%; background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; overflow: hidden; margin: 0 auto 12px;
+  border: 3px dashed var(--border); transition: all var(--transition);
+  position: relative;
+}
+.profile-pic-upload:hover { border-color: var(--primary); }
+.profile-pic-upload img { width: 100%; height: 100%; object-fit: cover; }
+.profile-pic-upload .placeholder { font-size: 40px; color: var(--text3); }
+.btn {
+  padding: 12px 28px; border: none; border-radius: 50px; font-weight: 700;
+  font-size: 15px; cursor: pointer; transition: all var(--transition);
+  display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff; width: 100%;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(79,70,229,0.4); }
+.btn-secondary { background: var(--bg3); color: var(--text); }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-sm { padding: 8px 16px; font-size: 13px; }
+
+/* ============ MAIN APP LAYOUT ============ */
+.app-container { display: flex; min-height: 100vh; }
+.sidebar {
+  width: var(--sidebar-width); background: var(--bg2); border-left: 1px solid var(--border);
+  padding: 24px 0; display: flex; flex-direction: column;
+  position: fixed; top: 0; bottom: 0; right: 0; z-index: 100;
+  transition: transform var(--transition);
+}
+.sidebar-logo { padding: 0 20px 20px; text-align: center; }
+.sidebar-logo h2 {
+  font-size: 24px; font-weight: 900;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 12px; padding: 14px 20px;
+  cursor: pointer; transition: all var(--transition); color: var(--text2);
+  border-right: 3px solid transparent; font-weight: 500; margin: 2px 0;
+}
+.nav-item:hover { background: var(--bg3); color: var(--text); }
+.nav-item.active { background: rgba(79,70,229,0.1); color: var(--primary); border-right-color: var(--primary); }
+.nav-item .nav-icon { font-size: 20px; width: 28px; text-align: center; }
+.nav-item .badge {
+  background: var(--danger); color: #fff; font-size: 11px; padding: 2px 8px;
+  border-radius: 20px; margin-right: auto;
+}
+
+.sidebar-footer { margin-top: auto; padding: 20px; border-top: 1px solid var(--border); }
+
+.main-content { flex: 1; margin-right: var(--sidebar-width); padding: 24px; }
+.page { display: none; }
+.page.active { display: block; }
+
+/* ============ OPPORTUNITIES PAGE ============ */
+.opportunity-card {
+  background: var(--bg2); border-radius: var(--radius); padding: 24px;
+  margin-bottom: 16px; border: 1px solid var(--border);
+  box-shadow: var(--shadow); transition: all var(--transition);
+  position: relative; overflow: hidden;
+}
+.opportunity-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.opportunity-card .type-badge {
+  display: inline-block; padding: 6px 14px; border-radius: 50px;
+  font-size: 12px; font-weight: 700; margin-bottom: 12px;
+}
+.type-job { background: rgba(79,70,229,0.1); color: var(--primary); }
+.type-scholarship { background: rgba(16,185,129,0.1); color: var(--accent2); }
+.opportunity-card .opp-content { font-size: 15px; line-height: 1.7; margin-bottom: 16px; }
+.opportunity-card .opp-meta {
+  display: flex; gap: 20px; flex-wrap: wrap; font-size: 13px;
+  color: var(--text3); border-top: 1px solid var(--border); padding-top: 12px;
+}
+.opp-meta span { display: flex; align-items: center; gap: 6px; }
+.new-opp-btn {
+  position: fixed; bottom: 32px; left: 32px; width: 60px; height: 60px;
+  border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff; font-size: 28px; border: none; cursor: pointer;
+  box-shadow: 0 8px 24px rgba(79,70,229,0.5);
+  transition: all var(--transition); z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+}
+.new-opp-btn:hover { transform: scale(1.1); }
+
+/* ============ CHAT PAGE ============ */
+.chat-layout { display: flex; height: calc(100vh - 100px); gap: 16px; }
+.chat-sidebar {
+  width: 300px; background: var(--bg2); border-radius: var(--radius);
+  border: 1px solid var(--border); display: flex; flex-direction: column;
+  overflow: hidden; flex-shrink: 0;
+}
+.chat-sidebar-header {
+  padding: 16px; border-bottom: 1px solid var(--border);
+  font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px;
+}
+.chat-list { flex: 1; overflow-y: auto; padding: 8px; }
+.chat-room-item {
+  padding: 12px; border-radius: var(--radius-xs); cursor: pointer;
+  transition: all var(--transition); margin-bottom: 4px; display: flex; align-items: center; gap: 10px;
+}
+.chat-room-item:hover { background: var(--bg3); }
+.chat-room-item.active { background: rgba(79,70,229,0.1); border: 1px solid var(--primary); }
+.chat-room-item .room-icon { font-size: 24px; }
+.chat-room-item .room-info { flex: 1; min-width: 0; }
+.chat-room-item .room-name { font-weight: 600; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chat-room-item .room-id { font-size: 11px; color: var(--text3); }
+.chat-room-item .room-subscribers { font-size: 11px; color: var(--text3); }
+.create-room-btn {
+  margin: 8px; padding: 10px; text-align: center; background: var(--bg3);
+  border-radius: var(--radius-xs); cursor: pointer; font-weight: 600;
+  transition: all var(--transition); font-size: 14px;
+}
+.create-room-btn:hover { background: var(--primary); color: #fff; }
+
+.chat-main { flex: 1; display: flex; flex-direction: column; background: var(--bg2); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
+.chat-header {
+  padding: 14px 20px; border-bottom: 1px solid var(--border);
+  font-weight: 700; display: flex; align-items: center; gap: 10px;
+}
+.chat-messages {
+  flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column;
+  gap: 8px;
+}
+.message-wrapper { display: flex; flex-direction: column; max-width: 75%; }
+.message-wrapper.mine { align-self: flex-end; align-items: flex-end; }
+.message-wrapper.other { align-self: flex-start; align-items: flex-start; }
+.message-sender {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+  cursor: pointer;
+}
+.message-sender img {
+  width: 28px; height: 28px; border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--primary-light);
+}
+.message-sender .sender-name { font-size: 12px; font-weight: 600; color: var(--text2); }
+.message-sender .gender-icon { font-size: 12px; }
+.message-bubble {
+  padding: 10px 16px; border-radius: 18px; font-size: 14px; line-height: 1.5;
+  position: relative; word-wrap: break-word;
+}
+.message-wrapper.mine .message-bubble {
+  background: var(--sent-msg); color: var(--sent-text);
+  border-bottom-left-radius: 4px;
+}
+.message-wrapper.other .message-bubble {
+  background: var(--received-msg); color: var(--received-text);
+  border-bottom-right-radius: 4px;
+}
+.message-time {
+  font-size: 10px; color: var(--text3); margin-top: 2px; padding: 0 4px;
+}
+.message-actions {
+  display: none; gap: 4px; margin-top: 4px;
+}
+.message-wrapper:hover .message-actions { display: flex; }
+.message-actions button {
+  background: none; border: none; cursor: pointer; font-size: 12px;
+  color: var(--text3); padding: 2px 6px; border-radius: 4px;
+  transition: all var(--transition);
+}
+.message-actions button:hover { background: var(--bg3); color: var(--primary); }
+.message-actions button.delete-btn:hover { color: var(--danger); }
+.reply-indicator {
+  background: var(--bg3); padding: 6px 10px; border-radius: var(--radius-xs);
+  font-size: 11px; margin-bottom: 4px; border-right: 3px solid var(--primary);
+  cursor: pointer;
+}
+.replied-badge {
+  display: inline-block; font-size: 10px; background: rgba(245,158,11,0.2);
+  color: var(--accent); padding: 2px 8px; border-radius: 10px; margin-right: 6px;
+}
+.message-image { max-width: 250px; border-radius: 12px; cursor: pointer; }
+.message-file {
+  background: var(--bg3); padding: 10px 14px; border-radius: var(--radius-xs);
+  display: flex; align-items: center; gap: 8px; font-size: 13px;
+}
+.message-audio { display: flex; align-items: center; gap: 8px; }
+.message-audio audio { height: 36px; }
+
+/* Poll */
+.poll-container {
+  background: var(--bg3); border-radius: var(--radius-sm); padding: 14px;
+  margin: 8px 0; max-width: 350px;
+}
+.poll-title { font-weight: 700; margin-bottom: 10px; font-size: 14px; }
+.poll-option {
+  padding: 8px 12px; background: var(--bg2); border-radius: var(--radius-xs);
+  margin-bottom: 6px; cursor: pointer; transition: all var(--transition);
+  display: flex; align-items: center; gap: 8px;
+}
+.poll-option:hover { background: rgba(79,70,229,0.1); }
+.poll-option.voted { border: 2px solid var(--primary); }
+.poll-bar {
+  height: 6px; background: var(--border); border-radius: 3px; flex: 1;
+  overflow: hidden;
+}
+.poll-bar-fill { height: 100%; background: var(--primary); border-radius: 3px; transition: width 0.3s; }
+
+.chat-input-area {
+  padding: 14px 20px; border-top: 1px solid var(--border);
+  display: flex; gap: 10px; align-items: flex-end;
+}
+.chat-input-area textarea {
+  flex: 1; padding: 10px 16px; border-radius: 24px; border: 2px solid var(--border);
+  resize: none; font-family: inherit; font-size: 14px; background: var(--bg);
+  color: var(--text); min-height: 42px; max-height: 120px;
+  transition: all var(--transition);
+}
+.chat-input-area textarea:focus { outline: none; border-color: var(--primary); }
+.chat-input-area button {
+  width: 42px; height: 42px; border-radius: 50%; border: none;
+  background: var(--primary); color: #fff; font-size: 18px; cursor: pointer;
+  transition: all var(--transition); flex-shrink: 0;
+}
+.chat-input-area button:hover { background: var(--primary-dark); transform: scale(1.05); }
+.attach-btn { background: var(--bg3) !important; color: var(--text) !important; }
+
+/* Reply preview */
+.reply-preview {
+  background: var(--bg3); padding: 8px 14px; border-radius: var(--radius-xs);
+  display: flex; align-items: center; gap: 10px; margin: 0 20px;
+  font-size: 12px;
+}
+.reply-preview button { background: none; border: none; cursor: pointer; font-size: 16px; color: var(--text3); }
+
+/* ============ PROFILE PAGE ============ */
+.profile-container { max-width: 700px; margin: 0 auto; }
+.profile-header {
+  position: relative; text-align: center; padding: 40px 20px;
+  background: var(--bg2); border-radius: var(--radius); border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.profile-pic-large {
+  width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+  margin: 0 auto 16px; border: 4px solid var(--primary-light);
+  cursor: pointer; transition: all var(--transition);
+}
+.profile-pic-large:hover { opacity: 0.8; }
+.settings-btn {
+  position: absolute; top: 20px; left: 20px; width: 42px; height: 42px;
+  border-radius: 50%; background: var(--bg3); border: none; cursor: pointer;
+  font-size: 20px; transition: all var(--transition);
+  display: flex; align-items: center; justify-content: center; color: var(--text);
+}
+.settings-btn:hover { background: var(--primary); color: #fff; transform: rotate(90deg); }
+.settings-dropdown {
+  position: absolute; top: 65px; left: 20px; background: var(--bg2);
+  border-radius: var(--radius-sm); border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg); padding: 8px 0; min-width: 220px;
+  display: none; z-index: 10;
+}
+.settings-dropdown.show { display: block; }
+.settings-dropdown button {
+  display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 16px;
+  border: none; background: none; cursor: pointer; font-size: 14px;
+  color: var(--text); transition: all var(--transition); font-family: inherit;
+}
+.settings-dropdown button:hover { background: var(--bg3); }
+.profile-name { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+.profile-bio { color: var(--text2); font-size: 14px; margin-bottom: 12px; }
+.profile-role {
+  display: inline-block; padding: 4px 14px; border-radius: 50px;
+  font-size: 12px; font-weight: 600;
+}
+.role-premium { background: linear-gradient(135deg, #f59e0b, #f97316); color: #fff; }
+.role-user { background: var(--bg3); color: var(--text2); }
+.role-admin { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
+.profile-stats {
+  display: flex; gap: 16px; justify-content: center; margin-top: 20px;
+}
+.stat-item {
+  text-align: center; padding: 12px 20px; background: var(--bg3);
+  border-radius: var(--radius-sm);
+}
+.stat-value { font-size: 22px; font-weight: 900; color: var(--primary); }
+.stat-label { font-size: 11px; color: var(--text3); }
+.edit-profile-section {
+  background: var(--bg2); border-radius: var(--radius); padding: 24px;
+  margin-top: 20px; border: 1px solid var(--border);
+}
+
+/* ============ ADMIN PAGE ============ */
+.admin-container { max-width: 1000px; margin: 0 auto; }
+.admin-tabs { display: flex; gap: 4px; margin-bottom: 24px; flex-wrap: wrap; }
+.admin-tab {
+  padding: 10px 20px; border-radius: 50px; cursor: pointer; font-weight: 600;
+  font-size: 14px; transition: all var(--transition); background: var(--bg3);
+  color: var(--text2);
+}
+.admin-tab.active { background: var(--primary); color: #fff; }
+.admin-section { display: none; }
+.admin-section.active { display: block; }
+.user-table {
+  width: 100%; border-collapse: collapse; background: var(--bg2);
+  border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);
+}
+.user-table th, .user-table td { padding: 12px 16px; text-align: right; font-size: 13px; }
+.user-table th { background: var(--bg3); font-weight: 700; }
+.user-table tr { border-bottom: 1px solid var(--border); }
+.user-table tr:hover { background: var(--bg3); }
+.admin-card {
+  background: var(--bg2); border-radius: var(--radius); padding: 20px;
+  border: 1px solid var(--border); margin-bottom: 12px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+}
+
+/* ============ MODALS ============ */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 999; display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+.modal {
+  background: var(--bg2); border-radius: var(--radius); padding: 32px;
+  max-width: 500px; width: 90%; max-height: 85vh; overflow-y: auto;
+  box-shadow: var(--shadow-lg); border: 1px solid var(--border);
+  animation: slideUp 0.3s ease;
+}
+.modal h3 { margin-bottom: 20px; font-size: 20px; }
+.modal input, .modal textarea, .modal select {
+  width: 100%; padding: 12px; border-radius: var(--radius-xs);
+  border: 2px solid var(--border); margin-bottom: 12px; font-family: inherit;
+  background: var(--bg); color: var(--text);
+}
+.modal .btn-row { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
+
+/* ============ TOASTS ============ */
+.toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+.toast {
+  padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600;
+  color: #fff; box-shadow: var(--shadow-lg); animation: slideDown 0.3s ease;
+  text-align: center;
+}
+.toast-success { background: var(--accent2); }
+.toast-error { background: var(--danger); }
+.toast-info { background: var(--primary); }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main-content { margin-right: 0; }
+  .chat-layout { flex-direction: column; }
+  .chat-sidebar { width: 100%; height: 200px; }
+  .landing-content { padding: 32px 20px; }
+  .landing-content .features-grid { grid-template-columns: 1fr; }
+  .profile-stats { flex-wrap: wrap; }
+}
+.mobile-menu-btn {
+  display: none; position: fixed; top: 16px; right: 16px; z-index: 200;
+  width: 40px; height: 40px; border-radius: 50%; background: var(--bg2);
+  border: 1px solid var(--border); cursor: pointer; font-size: 20px;
+}
+@media (max-width: 768px) { .mobile-menu-btn { display: flex; align-items: center; justify-content: center; } }
+
+/* ============ LOADING ============ */
+.loading-spinner {
+  width: 40px; height: 40px; border: 3px solid var(--border);
+  border-top-color: var(--primary); border-radius: 50%;
+  animation: spin 0.8s linear infinite; margin: 40px auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.skeleton {
+  background: linear-gradient(90deg, var(--bg3) 25%, var(--bg2) 50%, var(--bg3) 75%);
+  background-size: 200% 100%; animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-xs);
+}
+
+/* ============ EMPTY STATE ============ */
+.empty-state { text-align: center; padding: 60px 20px; color: var(--text3); }
+.empty-state .empty-icon { font-size: 64px; margin-bottom: 12px; }
+.empty-state p { font-size: 16px; }
+
+/* ============ SEARCH INPUT ============ */
+.search-input {
+  padding: 10px 16px; border-radius: 50px; border: 2px solid var(--border);
+  width: 100%; font-size: 14px; background: var(--bg); color: var(--text);
+  margin-bottom: 12px; font-family: inherit;
+}
+.search-input:focus { outline: none; border-color: var(--primary); }
+
+/* ============ PROFILE VIEW MODAL ============ */
+.profile-view-modal { text-align: center; }
+.profile-view-modal img {
+  width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
+  border: 4px solid var(--primary-light); margin-bottom: 12px;
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOAST CONTAINER ============ -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ============ LANDING PAGE ============ -->
+<div class="landing" id="landingPage">
+  <div class="landing-content">
+    <div class="landing-logo">🎯</div>
+    <h1>Target U</h1>
+    <p class="tagline">بوابتك نحو المنح الدراسية وفرص العمل المتميزة</p>
+    <div class="features-grid">
+      <div class="feature-item">
+        <span class="feature-icon">📚</span>
+        <div class="feature-text"><strong>منح دراسية</strong><br>اكتشف أحدث المنح حول العالم</div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">💼</span>
+        <div class="feature-text"><strong>فرص عمل</strong><br>وظائف متميزة من مصادر موثوقة</div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">💬</span>
+        <div class="feature-text"><strong>دردشة مباشرة</strong><br>تواصل مع مجتمع Target U</div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">⭐</span>
+        <div class="feature-text"><strong>مستخدمون مميزون</strong><br>مزايا حصرية للمستخدمين المميزين</div>
+      </div>
+    </div>
+    <button class="landing-btn" onclick="dismissLanding()">🚀 ابدأ الآن</button>
+  </div>
+</div>
+
+<!-- ============ AUTH PAGE ============ -->
+<div class="auth-container" id="authPage" style="display:none;">
+  <div class="auth-card">
+    <div style="text-align:center;margin-bottom:16px;">
+      <span style="font-size:48px;">🎯</span>
+      <h2 style="margin-top:4px;">Target U</h2>
+    </div>
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">تسجيل الدخول</div>
+      <div class="auth-tab" id="tabSignup" onclick="switchAuthTab('signup')">إنشاء حساب</div>
+      <div class="auth-tab" id="tabAdmin" onclick="switchAuthTab('admin')" style="font-size:12px;">🔐</div>
+    </div>
+    <!-- Login Form -->
+    <form class="auth-form active" id="formLogin" onsubmit="handleLogin(event)">
+      <div class="form-group"><label>رقم الهاتف</label><input type="tel" id="loginPhone" required placeholder="+201000000000"></div>
+      <button type="submit" class="btn btn-primary">🔑 تسجيل الدخول</button>
+      <p style="text-align:center;margin-top:12px;font-size:13px;color:var(--text3);">للدخول كزائر: استخدم رقم 000000000</p>
+    </form>
+    <!-- Signup Form -->
+    <form class="auth-form" id="formSignup" onsubmit="handleSignup(event)">
+      <div class="form-group"><label>رقم الهاتف</label><input type="tel" id="signupPhone" required placeholder="+201000000000"></div>
+      <div class="form-group"><label>الاسم الكامل</label><input type="text" id="signupName" required placeholder="أدخل اسمك"></div>
+      <div class="form-group"><label>العمر</label><input type="number" id="signupAge" min="10" max="120" required placeholder="20"></div>
+      <div class="form-group"><label>النوع</label><select id="signupGender" required><option value="">اختر...</option><option value="male">👨 ذكر</option><option value="female">👩 أنثى</option></select></div>
+      <div class="form-group"><label>صورة الملف الشخصي</label>
+        <div class="profile-pic-upload" onclick="document.getElementById('signupPicInput').click()">
+          <span class="placeholder" id="signupPicPlaceholder">📷</span>
+          <img id="signupPicPreview" style="display:none;">
+        </div>
+        <input type="file" id="signupPicInput" accept="image/*" style="display:none;" onchange="previewSignupPic(event)">
+      </div>
+      <div class="form-group"><label>الوصف التعريفي</label><textarea id="signupDesc" rows="2" placeholder="اكتب وصفاً تعريفياً..."></textarea></div>
+      <button type="submit" class="btn btn-primary">✨ إنشاء حساب</button>
+    </form>
+    <!-- Admin Form -->
+    <form class="auth-form" id="formAdmin" onsubmit="handleAdminLogin(event)">
+      <div class="form-group"><label>اسم المستخدم</label><input type="text" id="adminUsername" required></div>
+      <div class="form-group"><label>كلمة المرور</label><input type="password" id="adminPassword" required></div>
+      <button type="submit" class="btn btn-primary" style="background:linear-gradient(135deg,#ef4444,#dc2626);">🔐 دخول المشرف</button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ MAIN APP ============ -->
+<div class="app-container" id="appContainer" style="display:none;">
+  <!-- Mobile Menu -->
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><h2>🎯 Target U</h2></div>
+    <nav>
+      <div class="nav-item active" data-page="opportunities" onclick="switchPage('opportunities')">
+        <span class="nav-icon">📋</span> المنح والوظائف
+        <span class="badge" id="oppBadge" style="display:none;">0</span>
+      </div>
+      <div class="nav-item" data-page="chat" onclick="switchPage('chat')">
+        <span class="nav-icon">💬</span> الدردشة
+        <span class="badge" id="chatBadge" style="display:none;">0</span>
+      </div>
+      <div class="nav-item" data-page="profile" onclick="switchPage('profile')">
+        <span class="nav-icon">👤</span> الملف الشخصي
+      </div>
+      <div class="nav-item" data-page="adminPanel" id="adminNavItem" onclick="switchPage('adminPanel')" style="display:none;">
+        <span class="nav-icon">⚙️</span> لوحة التحكم
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn btn-secondary" style="width:100%;" onclick="logout()">🚪 تسجيل الخروج</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Opportunities Page -->
+    <div class="page active" id="page-opportunities">
+      <h2 style="margin-bottom:20px;">📋 المنح الدراسية وفرص العمل</h2>
+      <div id="opportunitiesList"></div>
+      <div class="empty-state" id="oppEmpty">
+        <div class="empty-icon">📭</div>
+        <p>لا توجد منح أو فرص عمل حتى الآن</p>
+        <p style="font-size:13px;">سيقوم المشرفون والمستخدمون المميزون بنشر الفرص هنا</p>
+      </div>
+      <button class="new-opp-btn" id="newOppBtn" title="إضافة فرصة جديدة" onclick="openNewOppModal()" style="display:none;">＋</button>
+    </div>
+
+    <!-- Chat Page -->
+    <div class="page" id="page-chat">
+      <div class="chat-layout">
+        <div class="chat-sidebar">
+          <div class="chat-sidebar-header">💬 المحادثات</div>
+          <div class="chat-list" id="chatRoomList">
+            <div class="chat-room-item active" data-room="general" onclick="selectChatRoom('general')">
+              <span class="room-icon">🌐</span>
+              <div class="room-info"><div class="room-name">الدردشة العامة</div><div class="room-id">general</div></div>
+            </div>
+          </div>
+          <div style="padding:8px;">
+            <input type="text" class="search-input" id="roomSearchInput" placeholder="🔍 بحث عن غرفة بـ ID...">
+          </div>
+          <div class="create-room-btn" id="createRoomBtn" onclick="openCreateRoomModal()" style="display:none;">＋ إنشاء غرفة جديدة</div>
+        </div>
+        <div class="chat-main">
+          <div class="chat-header" id="chatHeader">🌐 الدردشة العامة</div>
+          <div class="reply-preview" id="replyPreview" style="display:none;">
+            <span>↩️ رد على: <span id="replyPreviewText"></span></span>
+            <button onclick="cancelReply()">✕</button>
+          </div>
+          <div class="chat-messages" id="chatMessages"></div>
+          <div class="chat-input-area">
+            <button class="attach-btn" onclick="openAttachModal()" title="إرفاق">📎</button>
+            <button class="attach-btn" onclick="openPollModal()" title="استطلاع رأي" id="pollBtn" style="display:none;">📊</button>
+            <textarea id="chatInput" rows="1" placeholder="اكتب رسالتك..." onkeydown="handleChatKey(event)"></textarea>
+            <button onclick="sendMessage()" title="إرسال">➤</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div class="page" id="page-profile">
+      <div class="profile-container">
+        <div class="profile-header">
+          <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
+          <div class="settings-dropdown" id="settingsDropdown">
+            <button onclick="toggleTheme()">🌓 <span id="themeLabel">الوضع الليلي</span></button>
+            <button id="premiumUpgradeBtn" onclick="openPremiumUpgradeModal()" style="display:none;">⭐ ترقية إلى حساب مميز</button>
+          </div>
+          <img class="profile-pic-large" id="profilePicLarge" src="" alt="الصورة الشخصية" onclick="document.getElementById('profilePicInput').click()">
+          <input type="file" id="profilePicInput" accept="image/*" style="display:none;" onchange="updateProfilePic(event)">
+          <h2 class="profile-name" id="profileDisplayName"></h2>
+          <p class="profile-bio" id="profileDisplayBio"></p>
+          <span class="profile-role" id="profileRoleBadge"></span>
+          <div class="profile-stats" id="profileStats" style="display:none;">
+            <div class="stat-item"><div class="stat-value" id="statPosts">0</div><div class="stat-label">المنشورات</div></div>
+            <div class="stat-item"><div class="stat-value" id="statRooms">0</div><div class="stat-label">الغرف</div></div>
+            <div class="stat-item"><div class="stat-value" id="statSubscribers">0</div><div class="stat-label">المشتركون</div></div>
+          </div>
+        </div>
+        <div class="edit-profile-section">
+          <h3>✏️ تعديل الملف الشخصي</h3>
+          <div class="form-group"><label>الاسم</label><input type="text" id="editName"></div>
+          <div class="form-group"><label>الوصف</label><textarea id="editBio" rows="2"></textarea></div>
+          <button class="btn btn-primary" onclick="saveProfile()">💾 حفظ التغييرات</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Page -->
+    <div class="page" id="page-adminPanel">
+      <div class="admin-container">
+        <h2 style="margin-bottom:20px;">⚙️ لوحة تحكم المشرف</h2>
+        <div class="admin-tabs">
+          <div class="admin-tab active" onclick="switchAdminTab('dashboard')">📊 لوحة المعلومات</div>
+          <div class="admin-tab" onclick="switchAdminTab('users')">👥 المستخدمون</div>
+          <div class="admin-tab" onclick="switchAdminTab('rooms')">💬 الغرف</div>
+          <div class="admin-tab" onclick="switchAdminTab('codes')">🔑 الرموز المميزة</div>
+          <div class="admin-tab" onclick="switchAdminTab('opportunities')">📋 المنح والوظائف</div>
+        </div>
+        <div class="admin-section active" id="admin-dashboard">
+          <div class="admin-card"><strong>👥 إجمالي المستخدمين:</strong> <span id="adminTotalUsers">0</span></div>
+          <div class="admin-card"><strong>⭐ المستخدمون المميزون:</strong> <span id="adminPremiumUsers">0</span></div>
+          <div class="admin-card"><strong>💬 إجمالي الغرف:</strong> <span id="adminTotalRooms">0</span></div>
+          <div class="admin-card"><strong>📋 المنح والوظائف:</strong> <span id="adminTotalOpps">0</span></div>
+        </div>
+        <div class="admin-section" id="admin-users">
+          <input type="text" class="search-input" id="adminUserSearch" placeholder="🔍 بحث عن مستخدم..." oninput="renderAdminUsers()">
+          <div id="adminUsersList"></div>
+        </div>
+        <div class="admin-section" id="admin-rooms">
+          <div id="adminRoomsList"></div>
+        </div>
+        <div class="admin-section" id="admin-codes">
+          <div style="margin-bottom:16px;">
+            <input type="text" id="newPremiumCode" placeholder="أدخل رمزاً جديداً..." style="padding:10px;border-radius:50px;border:2px solid var(--border);width:250px;">
+            <button class="btn btn-primary btn-sm" onclick="addPremiumCode()">➕ إضافة</button>
+          </div>
+          <div id="adminCodesList"></div>
+        </div>
+        <div class="admin-section" id="admin-opportunities">
+          <div id="adminOppsList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODALS ============ -->
+<div id="modalContainer"></div>
+
+<script>
+// ============ CONFIG LOADING ============
+let CONFIG = {};
+
+async function loadConfig() {
+  try {
+    const res = await fetch('config.json');
+    CONFIG = await res.json();
+    console.log('✅ Config loaded');
+  } catch(e) {
+    console.warn('⚠️ Using default config');
+    CONFIG = {
+      telegram: { botToken: 'YOUR_BOT_TOKEN_HERE', chatId: 'YOUR_CHAT_ID_HERE' },
+      admin: { username: 'admin', password: 'admin123' },
+      premiumCodes: Array.from({length:20},(_,i)=>`TARGET-PREM-${String(i+1).padStart(3,'0')}`)
+    };
+  }
+}
+
+// ============ TELEGRAM API ============
+const TG = {
+  get apiBase() { return `https://api.telegram.org/bot${CONFIG.telegram.botToken}`; },
+  get chatId() { return CONFIG.telegram.chatId; },
+
+  async sendMessage(text) {
+    const res = await fetch(`${this.apiBase}/sendMessage`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({chat_id:this.chatId, text, parse_mode:'HTML'})
+    });
+    return (await res.json()).result;
+  },
+
+  async editMessage(messageId, text) {
+    const res = await fetch(`${this.apiBase}/editMessageText`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({chat_id:this.chatId, message_id:messageId, text, parse_mode:'HTML'})
+    });
+    return (await res.json()).result;
+  },
+
+  async getMessage(messageId) {
+    // We can't directly get a single message easily, so we use getUpdates or forward
+    // For simplicity, we'll store a "index message" that contains message_ids
+    try {
+      const res = await fetch(`${this.apiBase}/forwardMessage`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({chat_id:this.chatId, from_chat_id:this.chatId, message_id:messageId})
+      });
+      const data = await res.json();
+      if(data.ok && data.result) {
+        // Delete the forwarded copy
+        await this.deleteMessage(data.result.message_id);
+        return data.result.text || data.result.caption || '';
+      }
+      return null;
+    } catch(e) { return null; }
+  },
+
+  async deleteMessage(messageId) {
+    try {
+      await fetch(`${this.apiBase}/deleteMessage`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({chat_id:this.chatId, message_id:messageId})
+      });
+    } catch(e) {}
+  },
+
+  async sendDocument(caption, fileData, fileName) {
+    const formData = new FormData();
+    formData.append('chat_id', this.chatId);
+    formData.append('caption', caption);
+    formData.append('document', new Blob([fileData]), fileName);
+    const res = await fetch(`${this.apiBase}/sendDocument`, {method:'POST', body:formData});
+    return (await res.json()).result;
+  }
+};
+
+// ============ DATA STORAGE (via Telegram) ============
+let MASTER_MSG_ID = null;
+let DATA = {
+  users: [],
+  opportunities: [],
+  rooms: [],
+  generalChat: [],
+  polls: [],
+  premiumCodes: [...CONFIG.premiumCodes],
+  activeRooms: {} // roomId -> messages array (will be populated)
+};
+
+async function initStorage() {
+  // First, try to find our master index by sending a search message
+  // Since we can't search, we'll store the master message ID in localStorage as fallback
+  const savedMasterId = localStorage.getItem('tg_master_msg_id');
+  if(savedMasterId) {
+    MASTER_MSG_ID = parseInt(savedMasterId);
+    // Try to load from existing master
+    const text = await TG.getMessage(MASTER_MSG_ID);
+    if(text && text.startsWith('{')) {
+      try {
+        const masterData = JSON.parse(text);
+        // Load all data
+        await loadAllData(masterData);
+        console.log('✅ Data loaded from Telegram');
+        return;
+      } catch(e) { console.warn('Master parse error, creating new'); }
+    }
+  }
+  // Create new master
+  await createNewStorage();
+}
+
+async function createNewStorage() {
+  // Create messages for each data type
+  const userMsg = await TG.sendMessage('USERS:[]');
+  const oppMsg = await TG.sendMessage('OPPORTUNITIES:[]');
+  const roomsMsg = await TG.sendMessage('ROOMS:[]');
+  const chatMsg = await TG.sendMessage('GENERAL_CHAT:[]');
+  const pollsMsg = await TG.sendMessage('POLLS:[]');
+  const codesMsg = await TG.sendMessage('CODES:' + JSON.stringify(CONFIG.premiumCodes));
+
+  const masterData = {
+    users: userMsg.message_id,
+    opportunities: oppMsg.message_id,
+    rooms: roomsMsg.message_id,
+    generalChat: chatMsg.message_id,
+    polls: pollsMsg.message_id,
+    premiumCodes: codesMsg.message_id,
+    activeRooms: {}
+  };
+
+  const masterMsg = await TG.sendMessage(JSON.stringify(masterData));
+  MASTER_MSG_ID = masterMsg.message_id;
+  localStorage.setItem('tg_master_msg_id', MASTER_MSG_ID);
+  DATA.premiumCodes = [...CONFIG.premiumCodes];
+  console.log('✅ New storage created');
+}
+
+async function loadAllData(masterData) {
+  const loads = [];
+  const keys = ['users','opportunities','rooms','generalChat','polls','premiumCodes'];
+  
+  for(const key of keys) {
+    if(masterData[key]) {
+      loads.push((async () => {
+        const text = await TG.getMessage(masterData[key]);
+        if(text) {
+          if(key === 'premiumCodes') {
+            try { DATA[key] = JSON.parse(text); } catch(e) { DATA[key] = [...CONFIG.premiumCodes]; }
+          } else {
+            const match = text.match(new RegExp(`${key.toUpperCase()}:([\\s\\S]*)`));
+            if(match) {
+              try { DATA[key] = JSON.parse(match[1]); } catch(e) { DATA[key] = []; }
+            }
+          }
+        }
+      })());
+    }
+  }
+  await Promise.all(loads);
+  DATA.activeRooms = masterData.activeRooms || {};
+  // Load room messages
+  for(const [roomId, msgId] of Object.entries(DATA.activeRooms)) {
+    loads.push((async () => {
+      const text = await TG.getMessage(msgId);
+      if(text) {
+        const match = text.match(/ROOM_MSGS:([\s\S]*)/);
+        if(match) {
+          try { DATA.activeRooms[roomId] = { msgId, messages: JSON.parse(match[1]) }; } 
+          catch(e) { DATA.activeRooms[roomId] = { msgId, messages: [] }; }
+        }
+      }
+    })());
+  }
+  await Promise.all(loads);
+  // Normalize
+  for(const [roomId, val] of Object.entries(DATA.activeRooms)) {
+    if(!val.messages) DATA.activeRooms[roomId] = { msgId: val, messages: [] };
+  }
+}
+
+async function saveData(key) {
+  if(!MASTER_MSG_ID) return;
+  
+  let msgId;
+  const masterText = await TG.getMessage(MASTER_MSG_ID);
+  if(!masterText) return;
+  const masterData = JSON.parse(masterText);
+
+  if(key === 'premiumCodes') {
+    msgId = masterData[key];
+    if(msgId) await TG.editMessage(msgId, JSON.stringify(DATA[key]));
+  } else if(key === 'activeRooms') {
+    // Save individual room messages
+    for(const [roomId, val] of Object.entries(DATA.activeRooms)) {
+      const roomMsgId = val.msgId || masterData.activeRooms?.[roomId]?.msgId;
+      if(roomMsgId) {
+        await TG.editMessage(roomMsgId, 'ROOM_MSGS:' + JSON.stringify(val.messages || []));
+      } else {
+        const newMsg = await TG.sendMessage('ROOM_MSGS:' + JSON.stringify(val.messages || []));
+        val.msgId = newMsg.message_id;
+        DATA.activeRooms[roomId] = val;
+      }
+    }
+    // Update master with room msgIds
+    const newActiveRooms = {};
+    for(const [rid, v] of Object.entries(DATA.activeRooms)) {
+      newActiveRooms[rid] = v.msgId || v;
+    }
+    masterData.activeRooms = newActiveRooms;
+    await TG.editMessage(MASTER_MSG_ID, JSON.stringify(masterData));
+    return;
+  } else {
+    msgId = masterData[key];
+    if(msgId) {
+      const prefix = key.toUpperCase() + ':';
+      await TG.editMessage(msgId, prefix + JSON.stringify(DATA[key]));
+    }
+  }
+}
+
+async function saveAllData() {
+  for(const key of ['users','opportunities','rooms','generalChat','polls','premiumCodes']) {
+    await saveData(key);
+  }
+  await saveData('activeRooms');
+}
+
+// ============ APP STATE ============
+let currentUser = null;
+let currentPage = 'opportunities';
+let currentChatRoom = 'general';
+let replyingTo = null;
+let currentAdminTab = 'dashboard';
+let isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+// ============ HELPERS ============
+function toast(msg, type='info') {
+  const container = document.getElementById('toastContainer');
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.textContent = msg;
+  container.appendChild(el);
+  setTimeout(() => { el.style.opacity='0'; el.style.transition='opacity 0.3s'; setTimeout(()=>el.remove(),300); }, 3000);
+}
+
+function generateId() {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2, 6);
+}
+
+function formatTime(ts) {
+  const d = new Date(ts);
+  const now = new Date();
+  const diff = now - d;
+  if(diff < 60000) return 'الآن';
+  if(diff < 3600000) return `${Math.floor(diff/60000)} د`;
+  if(diff < 86400000) return d.toLocaleTimeString('ar-EG', {hour:'2-digit',minute:'2-digit'});
+  return d.toLocaleDateString('ar-EG', {month:'short',day:'numeric'}) + ' ' + d.toLocaleTimeString('ar-EG', {hour:'2-digit',minute:'2-digit'});
+}
+
+function formatFullDate(ts) {
+  const d = new Date(ts);
+  const days = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  return `${days[d.getDay()]}، ${d.toLocaleDateString('ar-EG')} - ${d.toLocaleTimeString('ar-EG', {hour:'2-digit',minute:'2-digit',second:'2-digit'})}`;
+}
+
+function getGenderEmoji(gender) {
+  return gender === 'male' ? '♂️' : gender === 'female' ? '♀️' : '';
+}
+
+function getDefaultPic(gender) {
+  return gender === 'female' 
+    ? 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="50" cy="50" r="50" fill="#fce7f3"/><text x="50" y="65" text-anchor="middle" font-size="50">👩</text></svg>')
+    : 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="50" cy="50" r="50" fill="#e0e7ff"/><text x="50" y="65" text-anchor="middle" font-size="50">👨</text></svg>');
+}
+
+// ============ LANDING ============
+function dismissLanding() {
+  document.getElementById('landingPage').classList.add('hidden');
+  document.getElementById('authPage').style.display = 'flex';
+  localStorage.setItem('landingSeen', 'true');
+}
+
+// ============ AUTH ============
+function switchAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+  document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+  document.getElementById('form' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+}
+
+async function handleLogin(e) {
+  e.preventDefault();
+  const phone = document.getElementById('loginPhone').value.trim();
+  if(!phone) return toast('الرجاء إدخال رقم الهاتف', 'error');
+  
+  // Guest login
+  if(phone === '000000000') {
+    currentUser = {
+      phone: '000000000', name: 'زائر', age: 0, gender: 'male',
+      profilePic: getDefaultPic('male'), description: 'مستخدم زائر',
+      isPremium: false, isAdmin: false, isBanned: false
+    };
+    enterApp();
+    return;
+  }
+
+  const user = DATA.users.find(u => u.phone === phone);
+  if(!user) return toast('رقم الهاتف غير مسجل', 'error');
+  if(user.isBanned) return toast('هذا الحساب محظور', 'error');
+  
+  currentUser = user;
+  enterApp();
+}
+
+async function handleSignup(e) {
+  e.preventDefault();
+  const phone = document.getElementById('signupPhone').value.trim();
+  const name = document.getElementById('signupName').value.trim();
+  const age = parseInt(document.getElementById('signupAge').value);
+  const gender = document.getElementById('signupGender').value;
+  const desc = document.getElementById('signupDesc').value.trim();
+  
+  if(!phone || !name || !age || !gender) return toast('الرجاء ملء جميع الحقول', 'error');
+  if(DATA.users.find(u => u.phone === phone)) return toast('رقم الهاتف مسجل بالفعل', 'error');
+  
+  let profilePic = getDefaultPic(gender);
+  const picInput = document.getElementById('signupPicInput');
+  if(picInput.files[0]) {
+    profilePic = await readFileAsBase64(picInput.files[0]);
+  }
+
+  const newUser = {
+    phone, name, age, gender, profilePic, description: desc,
+    isPremium: false, isAdmin: false, isBanned: false, premiumCode: null,
+    joinedAt: Date.now()
+  };
+
+  DATA.users.push(newUser);
+  await saveData('users');
+  currentUser = newUser;
+  toast('تم إنشاء الحساب بنجاح! 🎉', 'success');
+  enterApp();
+}
+
+async function handleAdminLogin(e) {
+  e.preventDefault();
+  const username = document.getElementById('adminUsername').value.trim();
+  const password = document.getElementById('adminPassword').value.trim();
+  
+  if(username === CONFIG.admin.username && password === CONFIG.admin.password) {
+    // Check if admin user exists
+    let adminUser = DATA.users.find(u => u.isAdmin);
+    if(!adminUser) {
+      adminUser = {
+        phone: 'admin_' + Date.now(), name: 'المشرف', age: 0, gender: 'male',
+        profilePic: 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="50" cy="50" r="50" fill="#fee2e2"/><text x="50" y="65" text-anchor="middle" font-size="50">🛡️</text></svg>'),
+        description: 'مشرف المنصة', isPremium: true, isAdmin: true, isBanned: false, premiumCode: 'ADMIN',
+        joinedAt: Date.now()
+      };
+      DATA.users.push(adminUser);
+      await saveData('users');
+    }
+    currentUser = adminUser;
+    toast('مرحباً بك أيها المشرف! 🛡️', 'success');
+    enterApp();
+  } else {
+    toast('بيانات الدخول غير صحيحة', 'error');
+  }
+}
+
+function readFileAsBase64(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.readAsDataURL(file);
+  });
+}
+
+function previewSignupPic(e) {
+  const file = e.target.files[0];
+  if(file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      document.getElementById('signupPicPreview').src = reader.result;
+      document.getElementById('signupPicPreview').style.display = 'block';
+      document.getElementById('signupPicPlaceholder').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+// ============ APP ENTRY ============
+function enterApp() {
+  document.getElementById('authPage').style.display = 'none';
+  document.getElementById('appContainer').style.display = 'flex';
+  
+  if(isDarkMode) document.body.classList.add('dark');
+  updateThemeLabel();
+  
+  // Show admin nav if admin
+  if(currentUser.isAdmin) {
+    document.getElementById('adminNavItem').style.display = '';
+  }
+  
+  // Show premium upgrade if not premium
+  if(!currentUser.isPremium && !currentUser.isAdmin) {
+    document.getElementById('premiumUpgradeBtn').style.display = '';
+  }
+  
+  // Show create room and post buttons for premium/admin
+  if(currentUser.isPremium || currentUser.isAdmin) {
+    document.getElementById('createRoomBtn').style.display = '';
+    document.getElementById('newOppBtn').style.display = '';
+    document.getElementById('pollBtn').style.display = '';
+  }
+  
+  switchPage('opportunities');
+  applyTheme();
+}
+
+function logout() {
+  currentUser = null;
+  document.getElementById('appContainer').style.display = 'none';
+  document.getElementById('authPage').style.display = 'flex';
+  switchAuthTab('login');
+  document.getElementById('sidebar').classList.remove('open');
+}
+
+// ============ PAGE SWITCHING ============
+function switchPage(page) {
+  currentPage = page;
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelector(`[data-page="${page}"]`)?.classList.add('active');
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page)?.classList.add('active');
+  
+  if(page === 'opportunities') renderOpportunities();
+  if(page === 'chat') { renderChatRooms(); renderChatMessages(); }
+  if(page === 'profile') renderProfile();
+  if(page === 'adminPanel') renderAdminDashboard();
+  
+  // Close sidebar on mobile
+  document.getElementById('sidebar').classList.remove('open');
+}
+
+// ============ OPPORTUNITIES ============
+function renderOpportunities() {
+  const list = document.getElementById('opportunitiesList');
+  const empty = document.getElementById('oppEmpty');
+  
+  if(DATA.opportunities.length === 0) {
+    list.innerHTML = '';
+    empty.style.display = '';
+  } else {
+    empty.style.display = 'none';
+    list.innerHTML = DATA.opportunities.slice().reverse().map(opp => `
+      <div class="opportunity-card">
+        <span class="type-badge ${opp.type === 'job' ? 'type-job' : 'type-scholarship'}">
+          ${opp.type === 'job' ? '💼 وظيفة' : '📚 منحة دراسية'}
+        </span>
+        <div class="opp-content">${escapeHtml(opp.content).replace(/\n/g,'<br>')}</div>
+        <div class="opp-meta">
+          <span>👤 ${escapeHtml(opp.senderName)}</span>
+          <span>📅 ${formatFullDate(opp.timestamp)}</span>
+          ${opp.editedAt ? '<span style="color:var(--accent);">✏️ معدّل</span>' : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+function openNewOppModal() {
+  const modal = document.getElementById('modalContainer');
+  modal.innerHTML = `
+    <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
+      <div class="modal">
+        <h3>📋 إضافة فرصة جديدة</h3>
+        <div class="form-group"><label>النوع</label>
+          <select id="newOppType"><option value="scholarship">📚 منحة دراسية</option><option value="job">💼 وظيفة</option></select>
+        </div>
+        <div class="form-group"><label>المحتوى</label>
+          <textarea id="newOppContent" rows="5" placeholder="اكتب تفاصيل المنحة أو الوظيفة..."></textarea>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-secondary btn-sm" onclick="closeModal()">إلغاء</button>
+          <button class="btn btn-primary btn-sm" onclick="addOpportunity()">📤 نشر</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+async function addOpportunity() {
+  const type = document.getElementById('newOppType').value;
+  const content = document.getElementById('newOppContent').value.trim();
+  if(!content) return toast('الرجاء كتابة المحتوى', 'error');
+  
+  DATA.opportunities.push({
+    id: generateId(),
+    type,
+    content,
+    senderName: currentUser.name,
+    senderPhone: currentUser.phone,
+    timestamp: Date.now(),
+    editedAt: null
+  });
+  
+  await saveData('opportunities');
+  closeModal();
+  renderOpportunities();
+  toast('تم نشر الفرصة بنجاح! 🎉', 'success');
+}
+
+// ============ CHAT ============
+function renderChatRooms() {
+  const list = document.getElementById('chatRoomList');
+  let html = `
+    <div class="chat-room-item ${currentChatRoom==='general'?'active':''}" data-room="general" onclick="selectChatRoom('general')">
+      <span class="room-icon">🌐</span>
+      <div class="room-info"><div class="room-name">الدردشة العامة</div><div class="room-id">general</div></div>
+      <div class="room-subscribers">${DATA.users.filter(u=>!u.isBanned).length}</div>
+    </div>
+  `;
+  
+  DATA.rooms.forEach(room => {
+    const subCount = room.subscribers ? room.subscribers.length : 0;
+    html += `
+      <div class="chat-room-item ${currentChatRoom===room.id?'active':''}" data-room="${room.id}" onclick="selectChatRoom('${room.id}')">
+        <span class="room-icon">🏠</span>
+        <div class="room-info">
+          <div class="room-name">${escapeHtml(room.name)}</div>
+          <div class="room-id">ID: ${room.id}</div>
+        </div>
+        <div class="room-subscribers">👥 ${subCount}</div>
+      </div>
+    `;
+  });
+  
+  list.innerHTML = html;
+  
+  // Room search
+  document.getElementById('roomSearchInput').oninput = function() {
+    const q = this.value.trim().toLowerCase();
+    if(!q) { renderChatRooms(); return; }
+    const filtered = DATA.rooms.filter(r => r.id.toLowerCase().includes(q));
+    list.innerHTML = filtered.map(room => `
+      <div class="chat-room-item ${currentChatRoom===room.id?'active':''}" onclick="selectChatRoom('${room.id}')">
+        <span class="room-icon">🏠</span>
+        <div class="room-info"><div class="room-name">${escapeHtml(room.name)}</div><div class="room-id">ID: ${room.id}</div></div>
+      </div>
+    `).join('') || '<div style="padding:20px;text-align:center;color:var(--text3);">لا توجد نتائج</div>';
+  };
+}
+
+function selectChatRoom(roomId) {
+  currentChatRoom = roomId;
+  document.getElementById('chatHeader').textContent = roomId === 'general' ? '🌐 الدردشة العامة' : `🏠 ${DATA.rooms.find(r=>r.id===roomId)?.name || roomId}`;
+  renderChatRooms();
+  renderChatMessages();
+  replyingTo = null;
+  document.getElementById('replyPreview').style.display = 'none';
+}
+
+function openCreateRoomModal() {
+  const modal = document.getElementById('modalContainer');
+  modal.innerHTML = `
+    <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
+      <div class="modal">
+        <h3>🏠 إنشاء غرفة دردشة جديدة</h3>
+        <div class="form-group"><label>اسم الغرفة</label><input type="text" id="newRoomName" placeholder="اسم الغرفة"></div>
+        <p style="font-size:12px;color:var(--text3);margin-bottom:12px;">سيتم إنشاء ID تلقائي للغرفة</p>
+        <div class="btn-row">
+          <button class="btn btn-secondary btn-sm" onclick="closeModal()">إلغاء</button>
+          <button class="btn btn-primary btn-sm" onclick="createRoom()">✅ إنشاء</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+async function createRoom() {
+  const name = document.getElementById('newRoomName').value.trim();
+  if(!name) return toast('الرجاء إدخال اسم الغرفة', 'error');
+  
+  const roomId = 'room_' + generateId();
+  DATA.rooms.push({
+    id: roomId,
+    name,
+    creatorPhone: currentUser.phone,
+    createdAt: Date.now(),
+    subscribers: [currentUser.phone]
+  });
+  DATA.activeRooms[roomId] = { msgId: null, messages: [] };
+  
+  await saveData('rooms');
+  await saveData('activeRooms');
+  closeModal();
+  selectChatRoom(roomId);
+  toast('تم إنشاء الغرفة! 🏠', 'success');
+}
+
+function getRoomMessages(roomId) {
+  if(roomId === 'general') return DATA.generalChat;
+  if(DATA.activeRooms[roomId]) {
+    if(!DATA.activeRooms[roomId].messages) DATA.activeRooms[roomId].messages = [];
+    return DATA.activeRooms[roomId].messages;
+  }
+  return [];
+}
+
+async function setRoomMessages(roomId, messages) {
+  if(roomId === 'general') {
+    DATA.generalChat = messages;
+    await saveData('generalChat');
+  } else {
+    if(!DATA.activeRooms[roomId]) DATA.activeRooms[roomId] = { msgId: null, messages: [] };
+    DATA.activeRooms[roomId].messages = messages;
+    await saveData('activeRooms');
+  }
+}
+
+function renderChatMessages() {
+  const container = document.getElementById('chatMessages');
+  const messages = getRoomMessages(currentChatRoom);
+  
+  if(messages.length === 0) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">💭</div><p>لا توجد رسائل بعد</p></div>`;
+    return;
+  }
+  
+  container.innerHTML = messages.map((msg, idx) => {
+    const sender = DATA.users.find(u => u.phone === msg.senderPhone) || {name:'مستخدم محذوف', profilePic:'', gender:''};
+    const isMine = currentUser && msg.senderPhone === currentUser.phone;
+    const canEdit = isMine && (Date.now() - msg.timestamp < 600000) && !msg.deleted;
+    const canDelete = isMine && (Date.now() - msg.timestamp < 600000) && !msg.deleted;
+    const isAdmin = currentUser && currentUser.isAdmin;
+    
+    if(msg.deleted) {
+      return `<div style="text-align:center;color:var(--text3);font-size:12px;padding:8px;">🗑️ تم حذف هذه الرسالة</div>`;
+    }
+    
+    const isPoll = msg.type === 'poll';
+    if(isPoll) {
+      return renderPollMessage(msg, isMine, isAdmin);
+    }
+    
+    let replyHtml = '';
+    if(msg.replyTo) {
+      const repliedMsg = messages.find(m => m.id === msg.replyTo);
+      if(repliedMsg && !repliedMsg.deleted) {
+        const repliedSender = DATA.users.find(u => u.phone === repliedMsg.senderPhone);
+        replyHtml = `<div class="reply-indicator" onclick="scrollToMessage('${msg.replyTo}')">↩️ رد على: ${escapeHtml(repliedSender?.name||'مستخدم')}: ${escapeHtml((repliedMsg.text||'').substring(0,40))}${(repliedMsg.text||'').length>40?'...':''}</div>`;
+      }
+    }
+    
+    const repliedBadge = messages.some(m => m.replyTo === msg.id && !m.deleted) 
+      ? '<span class="replied-badge">🔄 تم الرد</span>' : '';
+    
+    let contentHtml = '';
+    if(msg.text) contentHtml += escapeHtml(msg.text).replace(/\n/g,'<br>') + repliedBadge;
+    if(msg.image) contentHtml += `<br><img src="${msg.image}" class="message-image" onclick="viewImage('${msg.image}')">`;
+    if(msg.file) contentHtml += `<br><div class="message-file">📎 <a href="${msg.file.data}" download="${msg.file.name}" style="color:var(--primary);">${escapeHtml(msg.file.name)}</a></div>`;
+    if(msg.audio) contentHtml += `<br><div class="message-audio"><audio controls src="${msg.audio}"></audio></div>`;
+    
+    return `
+      <div class="message-wrapper ${isMine?'mine':'other'}" id="msg-${msg.id}">
+        <div class="message-sender" onclick="viewUserProfile('${msg.senderPhone}')">
+          <img src="${sender.profilePic || getDefaultPic(sender.gender)}" alt="" onerror="this.src='${getDefaultPic(sender.gender)}'">
+          <span class="sender-name">${escapeHtml(sender.name)}</span>
+          <span class="gender-icon">${getGenderEmoji(sender.gender)}</span>
+        </div>
+        ${replyHtml}
+        <div class="message-bubble">${contentHtml}</div>
+        <div class="message-time">
+          ${formatFullDate(msg.timestamp)}
+          ${msg.editedAt ? ' · ✏️ معدّل' : ''}
+        </div>
+        ${(canEdit || canDelete || isAdmin) ? `
+        <div class="message-actions">
+          ${(canEdit || isAdmin) ? `<button onclick="editMessage('${msg.id}')">✏️ تعديل</button>` : ''}
+          ${(canDelete || isAdmin) ? `<button class="delete-btn" onclick="deleteMessage('${msg.id}')">🗑️ حذف</button>` : ''}
+          <button onclick="replyToMessage('${msg.id}')">↩️ رد</button>
+        </div>` : `
+        <div class="message-actions">
+          <button onclick="replyToMessage('${msg.id}')">↩️ رد</button>
+        </div>`}
+      </div>
+    `;
+  }).join('');
+  
+  // Scroll to bottom
+  container.scrollTop = container.scrollHeight;
+}
+
+function renderPollMessage(msg, isMine, isAdmin) {
+  const poll = DATA.polls.find(p => p.messageId === msg.id);
+  if(!poll) return '';
+  const totalVotes = poll.options.reduce((s,o) => s + o.votes, 0);
+  const hasVoted = currentUser && poll.voters.includes(currentUser.phone);
+  const sender = DATA.users.find(u => u.phone === msg.senderPhone) || {name:'مستخدم'};
+  
+  return `
+    <div class="message-wrapper ${isMine?'mine':'other'}" id="msg-${msg.id}">
+      <div class="message-sender" onclick="viewUserProfile('${msg.senderPhone}')">
+        <img src="${sender.profilePic || getDefaultPic(sender.gender)}" alt="" onerror="this.src='${getDefaultPic(sender.gender)}'">
+        <span class="sender-name">${escapeHtml(sender.name)}</span>
+      </div>
+      <div class="poll-container">
+        <div class="poll-title">📊 ${escapeHtml(msg.text)}</div>
+        ${poll.options.map((opt, i) => `
+          <div class="poll-option ${hasVoted?'voted':''}" onclick="${hasVoted?'':`votePoll('${msg.id}',${i})`}">
+            <span>${escapeHtml(opt.text)}</span>
+            <div class="poll-bar"><div class="poll-bar-fill" style="width:${totalVotes>0?(opt.votes/totalVotes*100):0}%"></div></div>
+            <span style="font-size:11px;">${opt.votes}</span>
+          </div>
+        `).join('')}
+        <div style="font-size:10px;color:var(--text3);margin-top:6px;">إجمالي الأصوات: ${totalVotes}</div>
+      </div>
+      <div class="message-time">${formatFullDate(msg.timestamp)}</div>
+      ${isAdmin ? `<div class="message-actions"><button class="delete-btn" onclick="deleteMessage('${msg.id}')">🗑️ حذف</button></div>` : ''}
+    </div>
+  `;
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text && !pendingAttachment) return;
+  
+  const msg = {
+    id: generateId(),
+    senderPhone: currentUser.phone,
+    text: text || '',
+    timestamp: Date.now(),
+    editedAt: null,
+    deleted: false,
+    replyTo: replyingTo ? replyingTo.id : null,
+    type: 'text',
+    image: pendingAttachment?.image || null,
+    file: pendingAttachment?.file || null,
+    audio: pendingAttachment?.audio || null
+  };
+  
+  const messages = getRoomMessages(currentChatRoom);
+  messages.push(msg);
+  await setRoomMessages(currentChatRoom, messages);
+  
+  pendingAttachment = null;
+  input.value = '';
+  replyingTo = null;
+  document.getElementById('replyPreview').style.display = 'none';
+  renderChatMessages();
+  
+  // Scroll
+  document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+  
+  // Auto-refresh for others (in real implementation, polling would handle this)
+  setTimeout(() => renderChatMessages(), 2000);
+}
+
+let pendingAttachment = null;
+
+function handleChatKey(e) {
+  if(e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function replyToMessage(msgId) {
+  const messages = getRoomMessages(currentChatRoom);
+  const msg = messages.find(m => m.id === msgId);
+  if(!msg) return;
+  replyingTo = msg;
+  document.getElementById('replyPreview').style.display = 'flex';
+  document.getElementById('replyPreviewText').textContent = (msg.text || 'وسائط').substring(0, 60);
+  document.getElementById('chatInput').focus();
+}
+
+function cancelReply() {
+  replyingTo = null;
+  document.getElementById('replyPreview').style.display = 'none';
+}
+
+async function editMessage(msgId) {
+  const messages = getRoomMessages(currentChatRoom);
+  const msg = messages.find(m => m.id === msgId);
+  if(!msg) return;
+  
+  const newText = prompt('تعديل الرسالة:', msg.text || '');
+  if(newText === null) return;
+  
+  msg.text = newText;
+  msg.editedAt = Date.now();
+  await setRoomMessages(currentChatRoom, messages);
+  renderChatMessages();
+  toast('تم تعديل الرسالة ✏️', 'success');
+}
+
+async function deleteMessage(msgId) {
+  if(!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
+  
+  const messages = getRoomMessages(currentChatRoom);
+  const msg = messages.find(m => m.id === msgId);
+  if(!msg) return;
+  
+  if(currentUser.isAdmin) {
+    msg.deleted = true;
+  } else if(msg.senderPhone === currentUser.phone && Date.now() - msg.timestamp < 600000) {
+    msg.deleted = true;
+  } else {
+    return toast('لا يمكنك حذف هذه الرسالة', 'error');
+  }
+  
+  await setRoomMessages(currentChatRoom, messages);
+  renderChatMessages();
+  toast('تم حذف الرسالة 🗑️', 'info');
+}
+
+function scrollToMessage(msgId) {
+  const el = document.getElementById('msg-' + msgId);
+  if(el) {
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+    el.style.animation = 'pulse 0.6s ease';
+    setTimeout(() => el.style.animation = '', 600);
+  }
+}
+
+// ============ ATTACHMENTS ============
+function openAttachModal() {
+  const modal = document.getElementById('modalContainer');
+  modal.innerHTML = `
+    <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
+      <div class="modal">
+        <h3>📎 إرفاق ملف</h3>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <button class="btn btn-secondary" onclick="attachImage()">🖼️ صورة</button>
+          <button class="btn btn-secondary" onclick="attachFile()">📄 ملف</button>
+          <button class="btn btn-secondary" onclick="attachAudio()">🎤 رسالة صوتية</button>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary btn-sm" onclick="closeModal()">إغلاق</button></div>
+      </div>
+    </div>
+  `;
+}
+
+function attachImage() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = async (e) => {
+    const file = e.target.files[0];
+    if(file) {
+      const base64 = await readFileAsBase64(file);
+      pendingAttachment = { image: base64 };
+      closeModal();
+      toast('تم إرفاق الصورة، اكتب رسالتك ثم أرسل 🖼️', 'info');
+    }
+  };
+  input.click();
+}
+
+function attachFile() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.onchange = async (e) => {
+    const file = e.target.files[0];
+    if(file) {
+      const base64 = await readFileAsBase64(file);
+      pendingAttachment = { file: { name: file.name, data: base64 } };
+      closeModal();
+      toast('تم إرفاق الملف، اكتب رسالتك ثم أرسل 📄', 'info');
+    }
+  };
+  input.click();
+}
+
+function attachAudio() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'audio/*';
+  input.onchange = async (e) => {
+    const file = e.target.files[0];
+    if(file) {
+      const base64 = await readFileAsBase64(file);
+      pendingAttachment = { audio: base64 };
+      closeModal();
+      toast('تم إرفاق الصوت، اكتب رسالتك ثم أرسل 🎤', 'info');
+    }
+  };
+  input.click();
+}
+
+function viewImage(src) {
+  const modal = document.getElementById('modalContainer');
+  modal.innerHTML = `
+    <div class="modal-overlay" onclick="closeModal()">
+      <img src="${src}" style="max-width:90%;max-height:90vh;border-radius:12px;">
+    </div>
+  `;
+}
+
+// ============ POLLS ============
+function openPollModal() {
+  const modal = document.getElementById('modalContainer');
+  modal.innerHTML = `
+    <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
+      <div class="modal">
+        <h3>📊 استطلاع رأي</h3>
+        <div class="form-group"><label>السؤال</label><input type="text" id="pollQuestion" placeholder="اكتب سؤال الاستطلاع"></div>
+        <div class="form-group"><label>الخيارات (خيار واحد في كل سطر)</label><textarea id="pollOptions" rows="4" placeholder="الخيار 1&#10;الخيار 2&#10;الخيار 3"></textarea></div>
+        <div class="btn-row">
+          <button class="btn btn-secondary btn-sm" onclick="closeModal()">إلغاء</button>
+          <button class="btn btn-primary btn-sm" onclick="createPoll()">📊 إنشاء</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+async function createPoll() {
+  const question = document.getElementById('pollQuestion').value.trim();
+  const optionsText = document.getElementById('pollOptions').value.trim();
+  
+  if(!question || !optionsText) return toast('الرجاء ملء جميع الحقول', 'error');
+  
+  const options = optionsText.split('\n').filter(o => o.trim()).map(o => ({text: o.trim(), votes: 0}));
+  if(options.length < 2) return toast('يجب إدخال خيارين على الأقل', 'error');
+  
+  const msgId = generateId();
+  const pollData = {
+    messageId: msgId,
+    question,
+    options,
+    voters: [],
+    creatorPhone: currentUser.phone,
+    createdAt: Date.now()
+  };
+  
+  DATA.polls.push(pollData);
+  
+  const msg = {
+    id: msgId,
+    senderPhone: currentUser.phone,
+    text: question,
+    timestamp: Date.now(),
+    editedAt: null,
+    deleted: false,
+    replyTo: null,
+    type: 'poll'
+  };
+  
+  const messages = getRoomMessages(currentChatRoom);
+  messages.push(msg);
+  
+  await saveData('polls');
+  await setRoomMessages(currentChatRoom, messages);
+  closeModal();
+  renderChatMessages();
+  toast('تم إنشاء الاستطلاع 📊', 'success');
+}
+
+async function votePoll(msgId, optionIndex) {
+  if(!currentUser) return;
+  
+  const poll = DATA.polls.find(p => p.messageId === msgId);
+  if(!poll) return;
+  if(poll.voters.includes(currentUser.phone)) return;
+  
+  poll.options[optionIndex].votes++;
+  poll.voters.push(currentUser.phone);
+  
+  await saveData('polls');
+  renderChatMessages();
+  toast('تم التصويت ✅', 'success');
+}
+
+// ============ PROFILE ============
+function renderProfile() {
+  document.getElementById('profilePicLarge').src = currentUser.profilePic || getDefaultPic(currentUser.gender);
+  document.getElementById('profileDisplayName').textContent = currentUser.name;
+  document.getElementById('profileDisplayBio').textContent = currentUser.description || 'لا يوجد وصف';
+  document.getElementById('editName').value = currentUser.name;
+  document.getElementById('editBio').value = currentUser.description || '';
+  
+  // Role badge
+  const badge = document.getElementById('profileRoleBadge');
+  if(currentUser.isAdmin) {
+    badge.className = 'profile-role role-admin';
+    badge.textContent = '🛡️ مشرف';
+  } else if(currentUser.isPremium) {
+    badge.className = 'profile-role role-premium';
+    badge.textContent = '⭐ مميز';
+  } else {
+    badge.className = 'profile-role role-user';
+    badge.textContent = '👤 مستخدم';
+  }
+  
+  // Premium stats
+  const stats = document.getElementById('profileStats');
+  if(currentUser.isPremium || currentUser.isAdmin) {
+    stats.style.display = '';
+    const postCount = DATA.opportunities.filter(o => o.senderPhone === currentUser.phone).length;
+    const roomCount = DATA.rooms.filter(r => r.creatorPhone === currentUser.phone).length;
+    let subscriberCount = 0;
+    DATA.rooms.filter(r => r.creatorPhone === currentUser.phone).forEach(r => {
+      subscriberCount += (r.subscribers ? r.subscribers.length : 0);
+    });
+    document.getElementById('statPosts').textContent = postCount;
+    document.getElementById('statRooms').textContent = roomCount;
+    document.getElementById('statSubscribers').textContent = subscriberCount;
+  } else {
+    stats.style.display = 'none';
+  }
+  
+  // Premium upgrade button
+  if(!currentUser.isPremium && !currentUser.isAdmin) {
+    document.getElementById('premiumUpgradeBtn').style.display = '';
+  } else {
+    document.getElementById('premiumUpgradeBtn').style.display = 'none';
+  }
+}
+
+async function saveProfile() {
+  const name = document.getElementById('editName').value.trim();
+  const bio = document.getElementById('editBio').value.trim();
+  
+  if(!name) return toast('الاسم لا يمكن أن يكون فارغاً', 'error');
+  
+  currentUser.name = name;
+  currentUser.description = bio;
+  
+  const idx = DATA.users.findIndex(u => u.phone === currentUser.phone);
+  if(idx >= 0) {
+    DATA.users[idx].name = name;
+    DATA.users[idx].description = bio;
+  }
+  
+  await saveData('users');
+  renderProfile();
+  toast('تم حفظ التغييرات! ✅', 'success');
+}
+
+async function updateProfilePic(e) {
+  const file = e.target.files[0];
+  if(!file) return;
+  
+  const base64 = await readFileAsBase64(file);
+  currentUser.profilePic = base64;
+  
+  const idx = DATA.users.findIndex(u => u.phone === currentUser.phone);
+  if(idx >= 0) DATA.users[idx].profilePic = base64;
+  
+  await saveData('users');
+  document.getElementById('profilePicLarge').src = base64;
+  toast('تم تحديث الصورة! 🖼️', 'success');
+}
+
+function openPremiumUpgradeModal() {
+  const modal = document.getElementById('modalContainer');
+  modal.innerHTML = `
+    <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
+      <div class="modal">
+        <h3>⭐ ترقية إلى حساب مميز</h3>
+        <p style="margin-bottom:12px;color:var(--text2);">أدخل الرمز المميز الذي حصلت عليه من المشرف</p>
+        <div class="form-group"><label>الرمز المميز</label><input type="text" id="premiumCodeInput" placeholder="TARGET-PREM-XXX"></div>
+        <div class="btn-row">
+          <button class="btn btn-secondary btn-sm" onclick="closeModal()">إلغاء</button>
+          <button class="btn btn-primary btn-sm" onclick="upgradeToPremium()">⭐ ترقية</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+async function upgradeToPremium() {
+  const code = document.getElementById('premiumCodeInput').value.trim();
+  if(!code) return toast('الرجاء إدخال الرمز', 'error');
+  
+  const codeIdx = DATA.premiumCodes.indexOf(code);
+  if(codeIdx === -1) return toast('الرمز غير صالح', 'error');
+  
+  // Remove code
+  DATA.premiumCodes.splice(codeIdx, 1);
+  currentUser.isPremium = true;
+  currentUser.premiumCode = code;
+  
+  const idx = DATA.users.findIndex(u => u.phone === currentUser.phone);
+  if(idx >= 0) {
+    DATA.users[idx].isPremium = true;
+    DATA.users[idx].premiumCode = code;
+  }
+  
+  await saveData('premiumCodes');
+  await saveData('users');
+  
+  // Update UI
+  document.getElementById('premiumUpgradeBtn').style.display = 'none';
+  document.getElementById('createRoomBtn').style.display = '';
+  document.getElementById('newOppBtn').style.display = '';
+  document.getElementById('pollBtn').style.display = '';
+  
+  closeModal();
+  renderProfile();
+  toast('🎉 تمت الترقية إلى حساب مميز!', 'success');
+}
+
+// ============ USER PROFILE VIEW ============
+function viewUserProfile(phone) {
+  const user = DATA.users.find(u => u.phone === phone);
+  if(!user) { toast('المستخدم غير موجود', 'error'); return; }
+  
+  const modal = document.getElementById('modalContainer');
+  modal.innerHTML = `
+    <div class="modal-overlay" onclick="closeModal()">
+      <div class="modal profile-view-modal">
+        <img src="${user.profilePic || getDefaultPic(user.gender)}" alt="" onerror="this.src='${getDefaultPic(user.gender)}'">
+        <h3>${escapeHtml(user.name)} ${getGenderEmoji(user.gender)}</h3>
+        <p style="color:var(--text2);margin-bottom:8px;">${escapeHtml(user.description || 'لا يوجد وصف')}</p>
+        <span class="profile-role ${user.isAdmin?'role-admin':user.isPremium?'role-premium':'role-user'}">
+          ${user.isAdmin?'🛡️ مشرف':user.isPremium?'⭐ مميز':'👤 مستخدم'}
+        </span>
+        <div style="margin-top:16px;font-size:13px;color:var(--text3);">
+          <p>📅 تاريخ الانضمام: ${formatFullDate(user.joinedAt || 0)}</p>
+          <p>📋 المنشورات: ${DATA.opportunities.filter(o=>o.senderPhone===phone).length}</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ============ SETTINGS ============
+function toggleSettings() {
+  document.getElementById('settingsDropdown').classList.toggle('show');
+}
+
+function toggleTheme() {
+  isDarkMode = !isDarkMode;
+  document.body.classList.toggle('dark', isDarkMode);
+  localStorage.setItem('darkMode', isDarkMode);
+  updateThemeLabel();
+}
+
+function updateThemeLabel() {
+  document.getElementById('themeLabel').textContent = isDarkMode ? '☀️ الوضع النهاري' : '🌙 الوضع الليلي';
+}
+
+function applyTheme() {
+  if(isDarkMode) document.body.classList.add('dark');
+  else document.body.classList.remove('dark');
+  updateThemeLabel();
+}
+
+// ============ ADMIN ============
+function switchAdminTab(tab) {
+  currentAdminTab = tab;
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  document.querySelector(`.admin-tab:nth-child(${['dashboard','users','rooms','codes','opportunities'].indexOf(tab)+1})`).classList.add('active');
+  document.getElementById('admin-' + tab).classList.add('active');
+  
+  if(tab === 'dashboard') renderAdminDashboard();
+  if(tab === 'users') renderAdminUsers();
+  if(tab === 'rooms') renderAdminRooms();
+  if(tab === 'codes') renderAdminCodes();
+  if(tab === 'opportunities') renderAdminOpps();
+}
+
+function renderAdminDashboard() {
+  document.getElementById('adminTotalUsers').textContent = DATA.users.length;
+  document.getElementById('adminPremiumUsers').textContent = DATA.users.filter(u=>u.isPremium).length;
+  document.getElementById('adminTotalRooms').textContent = DATA.rooms.length;
+  document.getElementById('adminTotalOpps').textContent = DATA.opportunities.length;
+}
+
+function renderAdminUsers(filter='') {
+  const list = document.getElementById('adminUsersList');
+  const q = filter.toLowerCase();
+  const users = DATA.users.filter(u => {
+    if(!q) return true;
+    return u.name.toLowerCase().includes(q) || u.phone.includes(q);
+  });
+  
+  list.innerHTML = `
+    <table class="user-table">
+      <thead><tr><th>الصورة</th><th>الاسم</th><th>رقم الهاتف</th><th>النوع</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+      <tbody>
+        ${users.map(u => `
+          <tr>
+            <td><img src="${u.profilePic||getDefaultPic(u.gender)}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;" onerror="this.src='${getDefaultPic(u.gender)}'"></td>
+            <td>${escapeHtml(u.name)} ${u.isAdmin?'🛡️':u.isPremium?'⭐':''}</td>
+            <td style="direction:ltr;text-align:right;">${escapeHtml(u.phone)}</td>
+            <td>${getGenderEmoji(u.gender)}</td>
+            <td>${u.isBanned?'🚫 محظور':'✅ نشط'}</td>
+            <td>
+              <button class="btn btn-sm ${u.isBanned?'btn-primary':'btn-danger'}" onclick="toggleBanUser('${u.phone}')">${u.isBanned?'✅ فك الحظر':'🚫 حظر'}</button>
+              ${!u.isAdmin ? `<button class="btn btn-sm btn-danger" onclick="deleteUserAccount('${u.phone}')" style="margin-right:4px;">🗑️</button>` : ''}
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+  
+  document.getElementById('adminUserSearch').oninput = function() {
+    renderAdminUsers(this.value);
+  };
+}
+
+async function toggleBanUser(phone) {
+  const user = DATA.users.find(u => u.phone === phone);
+  if(!user) return;
+  if(user.isAdmin) return toast('لا يمكن حظر المشرف', 'error');
+  user.isBanned = !user.isBanned;
+  await saveData('users');
+  renderAdminUsers(document.getElementById('adminUserSearch')?.value || '');
+  toast(user.isBanned ? 'تم حظر المستخدم 🚫' : 'تم فك الحظر ✅', 'info');
+}
+
+async function deleteUserAccount(phone) {
+  if(!confirm('هل أنت متأكد من حذف هذا الحساب؟ لا يمكن التراجع!')) return;
+  const idx = DATA.users.findIndex(u => u.phone === phone);
+  if(idx >= 0) DATA.users.splice(idx, 1);
+  await saveData('users');
+  renderAdminUsers(document.getElementById('adminUserSearch')?.value || '');
+  renderAdminDashboard();
+  toast('تم حذف الحساب 🗑️', 'info');
+}
+
+function renderAdminRooms() {
+  const list = document.getElementById('adminRoomsList');
+  list.innerHTML = DATA.rooms.map(room => `
+    <div class="admin-card">
+      <div>
+        <strong>🏠 ${escapeHtml(room.name)}</strong>
+        <div style="font-size:12px;color:var(--text3);">ID: ${room.id}</div>
+        <div style="font-size:12px;color:var(--text3);">المنشئ: ${escapeHtml(DATA.users.find(u=>u.phone===room.creatorPhone)?.name||'غير معروف')}</div>
+        <div style="font-size:12px;color:var(--text3);">المشتركون: ${room.subscribers?.length||0}</div>
+        <div style="font-size:12px;color:var(--text3);">الرسائل: ${DATA.activeRooms[room.id]?.messages?.length||0}</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-sm btn-secondary" onclick="editRoomId('${room.id}')">✏️ تعديل ID</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteRoom('${room.id}')">🗑️ حذف</button>
+      </div>
+    </div>
+  `).join('') || '<p style="color:var(--text3);text-align:center;">لا توجد غرف</p>';
+}
+
+async function editRoomId(roomId) {
+  const room = DATA.rooms.find(r => r.id === roomId);
+  if(!room) return;
+  const newId = prompt('أدخل ID الجديد:', room.id);
+  if(!newId || newId === roomId) return;
+  
+  // Transfer messages
+  if(DATA.activeRooms[roomId]) {
+    DATA.activeRooms[newId] = DATA.activeRooms[roomId];
+    delete DATA.activeRooms[roomId];
+  }
+  room.id = newId;
+  
+  await saveData('rooms');
+  await saveData('activeRooms');
+  renderAdminRooms();
+  renderChatRooms();
+  toast('تم تغيير ID الغرفة ✅', 'success');
+}
+
+async function deleteRoom(roomId) {
+  if(!confirm('هل أنت متأكد من حذف هذه الغرفة؟')) return;
+  DATA.rooms = DATA.rooms.filter(r => r.id !== roomId);
+  delete DATA.activeRooms[roomId];
+  await saveData('rooms');
+  await saveData('activeRooms');
+  renderAdminRooms();
+  renderChatRooms();
+  if(currentChatRoom === roomId) selectChatRoom('general');
+  renderAdminDashboard();
+  toast('تم حذف الغرفة 🗑️', 'info');
+}
+
+function renderAdminCodes() {
+  const list = document.getElementById('adminCodesList');
+  list.innerHTML = DATA.premiumCodes.map((code, i) => `
+    <div class="admin-card">
+      <span><strong>🔑 ${escapeHtml(code)}</strong></span>
+      <button class="btn btn-sm btn-danger" onclick="removePremiumCode(${i})">🗑️</button>
+    </div>
+  `).join('') || '<p style="color:var(--text3);">لا توجد رموز</p>';
+}
+
+async function addPremiumCode() {
+  const code = document.getElementById('newPremiumCode').value.trim();
+  if(!code) return toast('الرجاء إدخال رمز', 'error');
+  if(DATA.premiumCodes.includes(code)) return toast('الرمز موجود بالفعل', 'error');
+  
+  DATA.premiumCodes.push(code);
+  await saveData('premiumCodes');
+  document.getElementById('newPremiumCode').value = '';
+  renderAdminCodes();
+  toast('تم إضافة الرمز ✅', 'success');
+}
+
+async function removePremiumCode(index) {
+  DATA.premiumCodes.splice(index, 1);
+  await saveData('premiumCodes');
+  renderAdminCodes();
+  toast('تم حذف الرمز 🗑️', 'info');
+}
+
+function renderAdminOpps() {
+  const list = document.getElementById('adminOppsList');
+  list.innerHTML = DATA.opportunities.slice().reverse().map((opp, i) => `
+    <div class="admin-card">
+      <div style="flex:1;">
+        <span class="type-badge ${opp.type==='job'?'type-job':'type-scholarship'}">${opp.type==='job'?'💼 وظيفة':'📚 منحة'}</span>
+        <div style="font-size:14px;margin-top:6px;">${escapeHtml(opp.content).substring(0,100)}...</div>
+        <div style="font-size:11px;color:var(--text3);">${escapeHtml(opp.senderName)} · ${formatFullDate(opp.timestamp)}</div>
+      </div>
+      <button class="btn btn-sm btn-danger" onclick="deleteOpp('${opp.id}')">🗑️</button>
+    </div>
+  `).join('') || '<p style="color:var(--text3);text-align:center;">لا توجد منح أو وظائف</p>';
+}
+
+async function deleteOpp(oppId) {
+  DATA.opportunities = DATA.opportunities.filter(o => o.id !== oppId);
+  await saveData('opportunities');
+  renderAdminOpps();
+  renderAdminDashboard();
+  renderOpportunities();
+  toast('تم الحذف 🗑️', 'info');
+}
+
+// ============ MODAL ============
+function closeModal() {
+  document.getElementById('modalContainer').innerHTML = '';
+}
+
+// Close dropdowns on outside click
+document.addEventListener('click', (e) => {
+  const dropdown = document.getElementById('settingsDropdown');
+  if(dropdown && !e.target.closest('.settings-btn') && !e.target.closest('.settings-dropdown')) {
+    dropdown.classList.remove('show');
+  }
+});
+
+// ============ HELPER ============
+function escapeHtml(str) {
+  if(!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ============ AUTO-REFRESH CHAT ============
+let chatRefreshInterval = null;
+
+function startChatRefresh() {
+  if(chatRefreshInterval) clearInterval(chatRefreshInterval);
+  chatRefreshInterval = setInterval(async () => {
+    if(currentPage === 'chat') {
+      await loadAllDataFromMaster();
+      renderChatMessages();
+      renderChatRooms();
+    }
+  }, 5000);
+}
+
+async function loadAllDataFromMaster() {
+  if(!MASTER_MSG_ID) return;
+  const text = await TG.getMessage(MASTER_MSG_ID);
+  if(!text || !text.startsWith('{')) return;
+  try {
+    const masterData = JSON.parse(text);
+    const loads = [];
+    const keys = ['users','opportunities','rooms','generalChat','polls','premiumCodes'];
+    for(const key of keys) {
+      if(masterData[key]) {
+        loads.push((async () => {
+          const t = await TG.getMessage(masterData[key]);
+          if(t) {
+            if(key === 'premiumCodes') {
+              try { DATA[key] = JSON.parse(t); } catch(e) {}
+            } else {
+              const match = t.match(new RegExp(`${key.toUpperCase()}:([\\s\\S]*)`));
+              if(match) {
+                try { DATA[key] = JSON.parse(match[1]); } catch(e) {}
+              }
+            }
+          }
+        })());
+      }
+    }
+    await Promise.all(loads);
+    // Load room messages
+    for(const [roomId, msgId] of Object.entries(masterData.activeRooms || {})) {
+      try {
+        const t = await TG.getMessage(msgId);
+        if(t) {
+          const match = t.match(/ROOM_MSGS:([\s\S]*)/);
+          if(match) {
+            if(!DATA.activeRooms[roomId]) DATA.activeRooms[roomId] = {msgId, messages:[]};
+            DATA.activeRooms[roomId].messages = JSON.parse(match[1]);
+          }
+        }
+      } catch(e) {}
+    }
+  } catch(e) {}
+}
+
+// ============ INITIALIZATION ============
+async function init() {
+  await loadConfig();
+  
+  // Check if landing was seen
+  const landingSeen = localStorage.getItem('landingSeen');
+  if(landingSeen) {
+    document.getElementById('landingPage').classList.add('hidden');
+    document.getElementById('authPage').style.display = 'flex';
+  }
+  
+  // Initialize Telegram storage
+  try {
+    await initStorage();
+  } catch(e) {
+    console.warn('⚠️ Telegram storage init failed, using local fallback:', e.message);
+    // Use local storage fallback
+    const saved = localStorage.getItem('tg_local_data');
+    if(saved) {
+      try { DATA = JSON.parse(saved); } catch(e) {}
+    }
+    DATA.premiumCodes = DATA.premiumCodes.length ? DATA.premiumCodes : [...CONFIG.premiumCodes];
+  }
+  
+  // Periodic save to localStorage as backup
+  setInterval(() => {
+    localStorage.setItem('tg_local_data', JSON.stringify(DATA));
+  }, 10000);
+  
+  startChatRefresh();
+}
+
+// Override saveData to also save locally
+const origSaveData = saveData;
+saveData = async function(key) {
+  localStorage.setItem('tg_local_data', JSON.stringify(DATA));
+  try {
+    await origSaveData(key);
+  } catch(e) {
+    console.warn('Save to Telegram failed, using local only:', e.message);
+  }
+};
+
+init();
+</script>
+</body>
+</html>
